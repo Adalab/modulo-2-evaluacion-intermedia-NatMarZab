@@ -1,35 +1,41 @@
-const max = 100;
 function getRandomNumber(max) {
+    
     return Math.ceil(Math.random() * max);
    }
-const randomNumber = getRandomNumber(max);
-const input = document.querySelector("#tryNumber");
-const inputValue = input.value;
-const message = document.querySelector(".message");
-const button = document.querySelector(".button");
-const attemptsNumber = document.querySelector(".attempts_number");
-const attemptsNumberOp = parseInt(attemptsNumber);
+const randomNumber = getRandomNumber(100);
+console.log(randomNumber);
 
-
-function handleResult (event){
-    event.preventDefault()
-    function resultMessage(inputValue) {
-        if(inputValue < randomNumber) {
-            message.innerHTML = "Demasiado bajo";
-        }
-        else if(inputValue > randomNumber) {
-            message.innerHTML = "Demasiado alto";
-        }
-        else if(inputValue = randomNumber) {
-            message.innerHTML = "Has ganado campeona!!"
-        }
-        else if(inputValue === NaN || inputValue > 100 || inputValue < 1) {
-            message.innerHTML = "El número debe estar entre 1 y 100"
-        }
+function resultMessage() {
+    const input = document.querySelector('#tryNumber');
+    const message = document.querySelector(".message");
+    const inputValue = parseInt(input.value);
+    console.log(inputValue, randomNumber);
+    if(inputValue < randomNumber) {
+        message.innerHTML = "Demasiado bajo";
     }
-    function attemptsCount() {
-        attemptsNumberOp.innerHTML += 1; 
+    else if(inputValue > randomNumber) {
+        message.innerHTML = "Demasiado alto";
+    }
+    else if(inputValue = randomNumber) {
+        message.innerHTML = "Has ganado campeona!!"
+    }
+    else if(inputValue === NaN || inputValue > 100 || inputValue < 1) {
+        message.innerHTML = "El número debe estar entre 1 y 100"
     }
 }
-button.addEventListener("click", handleResult);
 
+let attemptsNumberOp = 0;
+function attemptsCount() {
+    attemptsNumberOp += 1;
+    const attemptsNumber = document.querySelector(".attempts_number");
+    attemptsNumber.innerHTML = attemptsNumberOp; //aquí estaba fallando que tenía puesto +=
+}
+
+function handleResult (){
+   
+    resultMessage();
+    attemptsCount();
+}
+
+const clickbutton = document.querySelector(".button");
+clickbutton.addEventListener("click", handleResult);
